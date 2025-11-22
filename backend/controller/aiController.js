@@ -1,15 +1,15 @@
-//ai related all information sb store hote
-// controller/aiController.js
-
-import OpenAI from "openai";
+// AI related controller for generating chapter content
+const OpenAI = require("openai");
 
 const client = new OpenAI({
   apiKey: process.env.XAI_API_KEY,
   baseURL: "https://api.x.ai/v1",
 });
 
-// Generate basic chapter
-export const generateChapter = async (req, res) => {
+// @desc    Generate a chapter using AI
+// @route   POST /api/ai/generate
+// @access  Private (uses protect middleware)
+exports.generateChapter = async (req, res) => {
   try {
     const { title } = req.body;
 
@@ -24,15 +24,16 @@ export const generateChapter = async (req, res) => {
       messages: [{ role: "user", content: prompt }],
     });
 
-    const result = response.choices[0].message.content;
+    const result = response.choices?.[0]?.message?.content || "";
 
-    res.json({
+    return res.json({
       success: true,
       content: result,
     });
-
   } catch (error) {
-    console.log("AI Error:", error);
-    res.status(500).json({ message: "AI Failed" });
+    console.error("AI Error:", error);
+    return res.status(500).json({ message: "AI Failed" });
   }
 };
+
+

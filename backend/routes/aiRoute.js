@@ -1,9 +1,12 @@
-import express from "express";
-import { protect } from "../middlewares/authMiddleware.js";
-import { generateChapter } from "../controller/aiController.js";
+const express = require("express");
+const { protect } = require("../middlewares/authMiddleware");
+const { generateChapter } = require("../controller/aiController");
 
 const router = express.Router();
 
+// POST /api/ai/generate
 router.post("/generate", protect, generateChapter);
 
-export default router;
+module.exports = router;
+
+

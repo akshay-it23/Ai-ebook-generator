@@ -11,7 +11,7 @@ const {
 } = require("../controller/bookController");
 
 const { protect } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const upload = require("../middlewares/uploadMIddleware");
 
 // Create + Get all books (User-specific)
 router.route("/")
